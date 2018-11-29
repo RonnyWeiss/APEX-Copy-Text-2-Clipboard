@@ -61,9 +61,9 @@ wwv_flow_api.create_plugin(
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'This plug-in is to copy text from an element on the page to ClipBoard.'
-,p_version_identifier=>'1.0'
+,p_version_identifier=>'1.0.3'
 ,p_about_url=>'https://github.com/RonnyWeiss/APEX-Copy-Text-2-Clipboard'
-,p_files_version=>7
+,p_files_version=>8
 );
 wwv_flow_api.create_plugin_attribute(
  p_id=>wwv_flow_api.id(6631457298473844086)
@@ -168,7 +168,7 @@ wwv_flow_api.create_plugin_file(
  p_id=>wwv_flow_api.id(6634387171623808042)
 ,p_plugin_id=>wwv_flow_api.id(6631450875265787206)
 ,p_file_name=>'script.min.js'
-,p_mime_type=>'application/javascript'
+,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
 ,p_file_content=>wwv_flow_api.varchar2_to_blob(wwv_flow_api.g_varchar2_table)
 );

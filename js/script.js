@@ -1,6 +1,6 @@
 function apexCopy2ClipBoard(self, wait, message, strLength) {
     var util = {
-        version: "1.0.2",
+        version: "1.0.3",
         cutString: function (text, textLength) {
             try {
                 if (textLength < 0) return text;

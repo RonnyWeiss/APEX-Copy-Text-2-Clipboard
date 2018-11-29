@@ -1,3 +1,4 @@
+prompt --application/set_environment
 set define off verify off feedback off
 whenever sqlerror exit sql.sqlcode rollback
 --------------------------------------------------------------------------------
@@ -20,15 +21,10 @@ wwv_flow_api.import_begin (
 );
 end;
 /
-prompt --application/ui_types
-begin
-null;
-end;
-/
 prompt --application/shared_components/plugins/dynamic_action/apex_copy_text_2_clipboard
 begin
 wwv_flow_api.create_plugin(
- p_id=>wwv_flow_api.id(533813468652615237)
+ p_id=>wwv_flow_api.id(6631450875265787206)
 ,p_plugin_type=>'DYNAMIC ACTION'
 ,p_name=>'APEX.COPY.TEXT.2.CLIPBOARD'
 ,p_display_name=>'APEX Copy Text to Clippboard'
@@ -65,13 +61,13 @@ wwv_flow_api.create_plugin(
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
 ,p_help_text=>'This plug-in is to copy text from an element on the page to ClipBoard.'
-,p_version_identifier=>'1.0'
-,p_about_url=>'https://github.com/RonnyWeiss'
-,p_files_version=>7
+,p_version_identifier=>'1.0.3'
+,p_about_url=>'https://github.com/RonnyWeiss/APEX-Copy-Text-2-Clipboard'
+,p_files_version=>8
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(533819891860672117)
-,p_plugin_id=>wwv_flow_api.id(533813468652615237)
+ p_id=>wwv_flow_api.id(6631457298473844086)
+,p_plugin_id=>wwv_flow_api.id(6631450875265787206)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
@@ -84,22 +80,22 @@ wwv_flow_api.create_plugin_attribute(
 ,p_help_text=>'Here you can set the Duration for Info Message. IF set to 0 then Info Message is not shown.'
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(536732815748524425)
-,p_plugin_id=>wwv_flow_api.id(533813468652615237)
+ p_id=>wwv_flow_api.id(6634370222361696394)
+,p_plugin_id=>wwv_flow_api.id(6631450875265787206)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
 ,p_prompt=>'Message after Value'
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>true
-,p_default_value=>'copied to Clipboard!'
+,p_default_value=>'%0 copied to Clipboard!'
 ,p_supported_ui_types=>'DESKTOP:JQM_SMARTPHONE'
 ,p_is_translatable=>true
-,p_examples=>'copied to Clipboard!'
+,p_examples=>'%0 copied to Clipboard!'
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(536748167328623703)
-,p_plugin_id=>wwv_flow_api.id(533813468652615237)
+ p_id=>wwv_flow_api.id(6634385573941795672)
+,p_plugin_id=>wwv_flow_api.id(6631450875265787206)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>3
 ,p_display_sequence=>30
@@ -148,8 +144,8 @@ end;
 /
 begin
 wwv_flow_api.create_plugin_file(
- p_id=>wwv_flow_api.id(533814861108615259)
-,p_plugin_id=>wwv_flow_api.id(533813468652615237)
+ p_id=>wwv_flow_api.id(6631452267721787228)
+,p_plugin_id=>wwv_flow_api.id(6631450875265787206)
 ,p_file_name=>'LICENSE'
 ,p_mime_type=>'application/octet-stream'
 ,p_file_charset=>'utf-8'
@@ -169,10 +165,10 @@ end;
 /
 begin
 wwv_flow_api.create_plugin_file(
- p_id=>wwv_flow_api.id(536749765010636073)
-,p_plugin_id=>wwv_flow_api.id(533813468652615237)
+ p_id=>wwv_flow_api.id(6634387171623808042)
+,p_plugin_id=>wwv_flow_api.id(6631450875265787206)
 ,p_file_name=>'script.min.js'
-,p_mime_type=>'application/javascript'
+,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
 ,p_file_content=>wwv_flow_api.varchar2_to_blob(wwv_flow_api.g_varchar2_table)
 );

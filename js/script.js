@@ -1,6 +1,27 @@
 function apexCopy2ClipBoard(self, wait, message, strLength) {
     var util = {
-        version: "1.0.3",
+        version: "1.0.5",
+        isAPEX: function () {
+            if (typeof (apex) !== 'undefined') {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        debug: {
+            info: function (str) {
+                if (util.isAPEX()) {
+                    apex.debug.info(str);
+                }
+            },
+            error: function (str) {
+                if (util.isAPEX()) {
+                    apex.debug.error(str);
+                } else {
+                    console.error(str);
+                }
+            }
+        },
         cutString: function (text, textLength) {
             try {
                 if (textLength < 0) return text;

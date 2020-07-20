@@ -1,6 +1,24 @@
 function apexCopy2ClipBoard(self, wait, message, strLength) {
     var util = {
-        version: "1.0.5",
+        /**********************************************************************************
+         ** required functions 
+         *********************************************************************************/
+        featureInfo: {
+            name: "apexCopy2ClipBoard",
+            info: {
+                scriptVersion: "1.0.4",
+                utilVersion: "1.3.4",
+                url: "https://github.com/RonnyWeiss",
+                license: "MIT"
+            }
+        },
+        isDefinedAndNotNull: function (pInput) {
+            if (typeof pInput !== "undefined" && pInput !== null && pInput != "") {
+                return true;
+            } else {
+                return false;
+            }
+        },
         isAPEX: function () {
             if (typeof (apex) !== 'undefined') {
                 return true;
@@ -8,20 +26,51 @@ function apexCopy2ClipBoard(self, wait, message, strLength) {
                 return false;
             }
         },
+        varType: function (pObj) {
+            if (typeof pObj === "object") {
+                var arrayConstructor = [].constructor;
+                var objectConstructor = ({}).constructor;
+                if (pObj.constructor === arrayConstructor) {
+                    return "array";
+                }
+                if (pObj.constructor === objectConstructor) {
+                    return "json";
+                }
+            } else {
+                return typeof pObj;
+            }
+        },
         debug: {
-            info: function (str) {
+            info: function () {
                 if (util.isAPEX()) {
-                    apex.debug.info(str);
+                    var i = 0;
+                    var arr = [];
+                    for (var prop in arguments) {
+                        arr[i] = arguments[prop];
+                        i++;
+                    }
+                    arr.push(util.featureInfo);
+                    apex.debug.info.apply(this, arr);
                 }
             },
-            error: function (str) {
+            error: function () {
+                var i = 0;
+                var arr = [];
+                for (var prop in arguments) {
+                    arr[i] = arguments[prop];
+                    i++;
+                }
+                arr.push(util.featureInfo);
                 if (util.isAPEX()) {
-                    apex.debug.error(str);
+                    apex.debug.error.apply(this, arr);
                 } else {
-                    console.error(str);
+                    console.error.apply(this, arr);
                 }
             }
         },
+        /**********************************************************************************
+         ** optinal functions 
+         *********************************************************************************/
         cutString: function (text, textLength) {
             try {
                 if (textLength < 0) return text;
@@ -33,16 +82,21 @@ function apexCopy2ClipBoard(self, wait, message, strLength) {
             } catch (e) {
                 return text;
             }
+        },
+        copy2Clipboard: function (pElement) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            var str = $(pElement).text() || $(pElement).val();
+            $temp.val(str).select();
+            document.execCommand("copy");
+            $temp.remove();
         }
     };
 
-    var $temp = $("<input>");
-    $("body").append($temp);
+    util.copy2Clipboard(self.affectedElements);
+
     var str = $(self.affectedElements).text() || $(self.affectedElements).val();
-    $temp.val(str).select();
-    document.execCommand("copy");
-    $temp.remove();
-    if ((wait || 0) > 0 && str) {
+    if ((wait || 0) > 0 && util.isDefinedAndNotNull(str)) {
         apex.message.showPageSuccess(message.replace("%0", util.cutString(str, strLength || 15)));
         setTimeout(function () {
             apex.message.hidePageSuccess();

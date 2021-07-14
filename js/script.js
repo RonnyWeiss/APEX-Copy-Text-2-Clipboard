@@ -1,4 +1,4 @@
-function apexCopy2ClipBoard(self, wait, message, strLength) {
+function apexCopy2ClipBoard(self, wait, message, strLength, cssFilter) {
     var util = {
         "featureDetails": {
             name: "apexCopy2ClipBoard",
@@ -37,20 +37,38 @@ function apexCopy2ClipBoard(self, wait, message, strLength) {
         }
     };
 
-    util.copy2Clipboard(self.affectedElements);
-
-    var str = $(self.affectedElements).text() || $(self.affectedElements).val();
-    if ((wait || 0) > 0 && util.isDefinedAndNotNull(str)) {
-        apex.message.showPageSuccess(message.replace("%0", util.cutString(str, strLength || 15)));
-        if (!window.apexCopy2ClipBoardTimer) {
-            window.apexCopy2ClipBoardTimer = setTimeout(function () {
-                apex.message.hidePageSuccess();
-            }, wait);
+    function checkClassFilter(pEl, pFilter) {
+        if (util.isDefinedAndNotNull(pFilter)) {
+            if ($(pEl).hasClass(pFilter)) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            clearTimeout(window.apexCopy2ClipBoardTimer);
-            window.apexCopy2ClipBoardTimer = setTimeout(function () {
-                apex.message.hidePageSuccess();
-            }, wait);
+            return true;
         }
     }
+
+    var affEl = self.affectedElements;
+
+    $.each(affEl, function (i, cEl) {
+        if (checkClassFilter(cEl, cssFilter)) {
+            util.copy2Clipboard(cEl);
+
+            var str = $(cEl).text() || $(cEl).val();
+            if ((wait || 0) > 0 && util.isDefinedAndNotNull(str)) {
+                apex.message.showPageSuccess(message.replace("%0", util.cutString(str.trim(), strLength || 15)));
+                if (!window.apexCopy2ClipBoardTimer) {
+                    window.apexCopy2ClipBoardTimer = setTimeout(function () {
+                        apex.message.hidePageSuccess();
+                    }, wait);
+                } else {
+                    clearTimeout(window.apexCopy2ClipBoardTimer);
+                    window.apexCopy2ClipBoardTimer = setTimeout(function () {
+                        apex.message.hidePageSuccess();
+                    }, wait);
+                }
+            }
+        }
+    });
 }

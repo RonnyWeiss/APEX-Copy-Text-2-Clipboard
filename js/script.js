@@ -1,16 +1,12 @@
 function apexCopy2ClipBoard(self, wait, message, strLength) {
     var util = {
-        /**********************************************************************************
-         ** required functions 
-         *********************************************************************************/
-        featureInfo: {
+        "featureDetails": {
             name: "apexCopy2ClipBoard",
-            info: {
-                scriptVersion: "1.0.4",
-                utilVersion: "1.3.4",
-                url: "https://github.com/RonnyWeiss",
-                license: "MIT"
-            }
+            scriptVersion: "1.0.5",
+            utilVersion: "1.4",
+            url: "https://github.com/RonnyWeiss",
+            url2: "https://linktr.ee/ronny.weiss",
+            license: "MIT"
         },
         isDefinedAndNotNull: function (pInput) {
             if (typeof pInput !== "undefined" && pInput !== null && pInput != "") {
@@ -19,58 +15,6 @@ function apexCopy2ClipBoard(self, wait, message, strLength) {
                 return false;
             }
         },
-        isAPEX: function () {
-            if (typeof (apex) !== 'undefined') {
-                return true;
-            } else {
-                return false;
-            }
-        },
-        varType: function (pObj) {
-            if (typeof pObj === "object") {
-                var arrayConstructor = [].constructor;
-                var objectConstructor = ({}).constructor;
-                if (pObj.constructor === arrayConstructor) {
-                    return "array";
-                }
-                if (pObj.constructor === objectConstructor) {
-                    return "json";
-                }
-            } else {
-                return typeof pObj;
-            }
-        },
-        debug: {
-            info: function () {
-                if (util.isAPEX()) {
-                    var i = 0;
-                    var arr = [];
-                    for (var prop in arguments) {
-                        arr[i] = arguments[prop];
-                        i++;
-                    }
-                    arr.push(util.featureInfo);
-                    apex.debug.info.apply(this, arr);
-                }
-            },
-            error: function () {
-                var i = 0;
-                var arr = [];
-                for (var prop in arguments) {
-                    arr[i] = arguments[prop];
-                    i++;
-                }
-                arr.push(util.featureInfo);
-                if (util.isAPEX()) {
-                    apex.debug.error.apply(this, arr);
-                } else {
-                    console.error.apply(this, arr);
-                }
-            }
-        },
-        /**********************************************************************************
-         ** optinal functions 
-         *********************************************************************************/
         cutString: function (text, textLength) {
             try {
                 if (textLength < 0) return text;
@@ -98,8 +42,15 @@ function apexCopy2ClipBoard(self, wait, message, strLength) {
     var str = $(self.affectedElements).text() || $(self.affectedElements).val();
     if ((wait || 0) > 0 && util.isDefinedAndNotNull(str)) {
         apex.message.showPageSuccess(message.replace("%0", util.cutString(str, strLength || 15)));
-        setTimeout(function () {
-            apex.message.hidePageSuccess();
-        }, wait);
+        if (!window.apexCopy2ClipBoardTimer) {
+            window.apexCopy2ClipBoardTimer = setTimeout(function () {
+                apex.message.hidePageSuccess();
+            }, wait);
+        } else {
+            clearTimeout(window.apexCopy2ClipBoardTimer);
+            window.apexCopy2ClipBoardTimer = setTimeout(function () {
+                apex.message.hidePageSuccess();
+            }, wait);
+        }
     }
 }

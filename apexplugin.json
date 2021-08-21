@@ -1,6 +1,6 @@
 {
     "name": "APEX Copy Text 2 Clipboard",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "This dynamic action plug-in is used to copy any text or the value of an item to clipboard when click on the text or on a button...",
     "keywords": ["oracle", "apex", "plugin", "dynamic action", "responsive"],
     "homepage": "https://github.com/RonnyWeiss/APEX-Copy-Text-2-Clipboard",

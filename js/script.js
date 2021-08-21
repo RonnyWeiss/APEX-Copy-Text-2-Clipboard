@@ -2,8 +2,8 @@ function apexCopy2ClipBoard(self, wait, message, strLength, cssFilter) {
     var util = {
         "featureDetails": {
             name: "apexCopy2ClipBoard",
-            scriptVersion: "1.0.5",
-            utilVersion: "1.4",
+            scriptVersion: "1.0.6",
+            utilVersion: "1.5",
             url: "https://github.com/RonnyWeiss",
             url2: "https://linktr.ee/ronny.weiss",
             license: "MIT"
@@ -28,7 +28,7 @@ function apexCopy2ClipBoard(self, wait, message, strLength, cssFilter) {
             }
         },
         copy2Clipboard: function (pElement) {
-            var $temp = $("<input>");
+            var $temp = $("<textarea>");
             $("body").append($temp);
             var str = $(pElement).text() || $(pElement).val();
             $temp.val(str).select();
